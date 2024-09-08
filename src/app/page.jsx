@@ -1,3 +1,4 @@
+import Card from '@/components/Card'
 import React from 'react'
 
 const Home = () => {
@@ -16,9 +17,9 @@ const Home = () => {
       <button className='btn'>Submit</button>
       <button className='loginBtn'>Login Button</button>
 
+      <Card></Card>
+
     </div>
-    
-    //Make card Component
 
   )
 }
