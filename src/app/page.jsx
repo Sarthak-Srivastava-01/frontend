@@ -1,9 +1,11 @@
 import Card from '@/components/Card'
+import Navbar from '@/components/Navbar'
 import React from 'react'
 
 const Home = () => {
   return (
     <div>
+
       <h1 className='text-3xl text-center mt-5'>My Home Page</h1>
 
       <p style={{color: 'blue', fontSize: 30, textAlign: 'center'}}>Welcome To Home</p>
