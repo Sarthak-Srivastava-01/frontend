@@ -19,7 +19,15 @@ const Home = () => {
       <button className='btn'>Submit</button>
       <button className='loginBtn'>Login Button</button>
 
-      <Card></Card>
+      <section className="py-16">
+            <div className="text-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8">
+                <Card></Card>
+                <Card></Card>
+                <Card></Card>
+                </div>
+            </div>
+      </section>
 
     </div>
 
