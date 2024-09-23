@@ -1,6 +1,7 @@
 'use client';
 import Button from '@/components/Button'
 import TextInput from '@/components/Input'
+import { IconLoader3, IconSend2 } from '@tabler/icons-react';
 import axios from 'axios';
 import { useFormik } from 'formik'
 import React from 'react'
@@ -29,18 +30,21 @@ const Signup = () => {
       password : '',
       confirmPassword : ''
     },
-    onSubmit: (values) => {
+    onSubmit: (values, {resetForm, setSubmitting}) => {
       console.log(values);
+      setSubmitting(true);
       // Send values to backend
 
       axios.post('http://localhost:5000/user/add', values)
       .then((result) => {
         console.log(result);
         toast.success('User Registered Successfully')
+        resetForm();
       }).catch((err) => {
         console.log(err);
         console.log(err?.response?.status);
-        toast.error('Something Went Wrong')
+        toast.error(err?.response.data.message || 'Something Went Wrong');
+        setSubmitting(false);
       });
     },
     validationSchema : signupSchema
@@ -93,8 +97,12 @@ const Signup = () => {
           }
 
           <button
+            disabled={signupForm.isSubmitting}
             type='submit'
-            className='bg-black mt-6 px-3 py-2 rounded text-white font-bold w-full'>Submit</button>
+            className='bg-black flex items-center gap-2 justify-center mt-6 px-3 py-2 rounded text-white font-bold w-full disabled:bg-gray-600'>
+              {signupForm.isSubmitting ? <IconLoader3 className='animate-spin' size={20} /> : <IconSend2 size={20}/>}
+              Submit
+            </button>
 
         </form>
       </div>
