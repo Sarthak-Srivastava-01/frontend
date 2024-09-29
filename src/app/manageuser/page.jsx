@@ -1,19 +1,32 @@
 'use client';
 import axios from 'axios'
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 
 const ManageUser = () => {
 
     const [userList, setuserList] = useState([])
+    const router = useRouter();
+    const token = localStorage.getItem('token');
 
-
-    const fetchUsers = async () => {
-        const res = await axios.get('http://localhost:5000/user/getall')
-        console.log(res.status);
-        console.table(res.data);
-        setuserList(res.data)
+    const fetchUsers = () => {
+        const res = axios.get('http://localhost:5000/user/getall', {
+            headers: {
+                'x-auth-token' : token
+            }}
+        )
+        .then((res) => {
+            console.log(res.status);
+            console.table(res.data);
+            setuserList(res.data)
+        }).catch((err) => {
+            if(err?.response?.status === 403){
+                toast.error('Login is required');
+                router.push('/login');
+            }
+        });
     }
     
     useEffect(() => {

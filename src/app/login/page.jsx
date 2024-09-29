@@ -24,6 +24,7 @@ const Login = () => {
       axios.post('http://localhost:5000/user/authenticate', values)
         .then((result) => {
           console.log(result.data);
+          localStorage.setItem('token', result.data.token);
           toast.success('Login Successful')
         }).catch((err) => {
           console.log(err);
